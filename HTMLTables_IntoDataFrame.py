@@ -27,7 +27,7 @@ for index, table in enumerate(tables):
 print(index_table)
 #rint(tables[index_table].prettify())
 
-population_data = pd.DataFrame(columns=["Rank", "Country", "Population", "Area", "Density"])
+population_data1= pd.DataFrame(columns=["Rank", "Country", "Population", "Area", "Density"])
 
 for row in tables[index_table].tbody.find_all("tr"):
     col = row.find_all("td")
@@ -37,6 +37,11 @@ for row in tables[index_table].tbody.find_all("tr"):
         population = col[2].text.strip()
         area = col[3].text.strip()
         density = col[4].text.strip()
-        population_data = population_data.append({"Rank":rank, "Country":country, "Population":population, "Area":area, "Density":density}, ignore_index=True)
+        population_data1 = population_data1.append({"Rank":rank, "Country":country, "Population":population, "Area":area, "Density":density}, ignore_index=True)
 
-print(population_data)
+print(population_data1)
+
+''' Scrape data from HTML tables into a DataFrame using read_html '''
+
+population_data2 = pd.read_html(url, match="10 most densely populated countries", flavor='bs4')[0]
+print(population_data2)
